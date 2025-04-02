@@ -8,9 +8,9 @@ type TodoItem struct {
 }
 
 type TodoList struct {
-	Id          string `json:"id"`
-	Title       string `json:"title" binding:"required"`
-	Discription string `json:"discription"`
+	Id          string `json:"id" db:"id"`
+	Title       string `json:"title" db:"title" binding:"required"`
+	Discription string `json:"discription" db:"discription"`
 }
 
 type UserList struct {
