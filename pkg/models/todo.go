@@ -9,7 +9,7 @@ type TodoItem struct {
 
 type TodoList struct {
 	Id          string `json:"id"`
-	Title       string `json:"title"`
+	Title       string `json:"title" binding:"required"`
 	Discription string `json:"discription"`
 }
 

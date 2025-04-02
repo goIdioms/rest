@@ -31,3 +31,14 @@ func (h *Handler) userIdentity(c *gin.Context) {
 
 	c.Set(userCtx, userID)
 }
+
+func GetUserId(c *gin.Context) (int, error) {
+	id, ok := c.Get(userCtx)
+	if !ok {
+		NewErrorResponse(c, http.StatusInternalServerError, "user not found")
+		return 0, nil
+	}
+
+	// get в контексте возвращает interface, поэтому приводим к int
+	return id.(int), nil
+}
