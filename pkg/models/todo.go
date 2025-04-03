@@ -24,3 +24,8 @@ type ListsItem struct {
 	ItemId int
 	ListId int
 }
+
+type UpdateListInput struct {
+	Title       *string `json:"title"`
+	Discription *string `json: "discription"`
+}
