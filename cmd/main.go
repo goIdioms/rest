@@ -1,7 +1,10 @@
 package main
 
 import (
+	"context"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/goIdioms/rest"
 	"github.com/goIdioms/rest/pkg/handlers"
@@ -39,10 +42,21 @@ func main() {
 	handlers := handlers.NewHandler(services)
 
 	server := new(rest.Server)
-	if err := server.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		logrus.Fatalf("error running http server %s", err.Error())
-	}
+	go func() {
+		if err := server.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
+			logrus.Fatalf("error running http server %s", err.Error())
+		}
+	}()
+	logrus.Print("App started on port 8000...")
 
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
+	<-quit
+
+	if err := server.Shutdown(context.Background()); err != nil {
+		logrus.Fatal(err)
+	}
+	db.Close()
 }
 
 func initConfig() error {
