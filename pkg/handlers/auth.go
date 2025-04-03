@@ -7,6 +7,21 @@ import (
 	"github.com/goIdioms/rest/pkg/models"
 )
 
+// @Summary Sign Up
+// @Tags auth
+// @Description Create new user account
+// @Accept json
+// @Produce json
+// @Param input body models.User true "User info"
+// @Success 200 {object} map[string]interface{} "Returns user id"
+// @Failure 400 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Router /auth/sign-up [post]
+
+type errorResponse struct {
+	Message string `json:"message"`
+}
+
 func (h Handler) singUp(c *gin.Context) {
 	var input models.User
 
@@ -32,6 +47,16 @@ type singInInput struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// @Summary Sign In
+// @Tags auth
+// @Description Login with existing credentials
+// @Accept json
+// @Produce json
+// @Param input body singInInput true "Credentials"
+// @Success 200 {object} map[string]interface{} "Returns auth token"
+// @Failure 400 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Router /auth/sign-in [post]
 func (h Handler) singIn(c *gin.Context) {
 	var input singInInput
 
