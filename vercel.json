@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "cmd/server/main.go": {
-      "runtime": "vercel-go@2.0.0"
-    }
-  },
   "builds": [
     {
       "src": "cmd/main.go",
