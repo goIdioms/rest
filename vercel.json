@@ -1,14 +1,13 @@
 {
-  "builds": [
-    {
-      "src": "cmd/main.go",
-      "use": "@vercel/go"
+  "functions": {
+    "cmd/main.go": {
+      "runtime": "vercel-go@2.0.0"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/cmd/main.go"
+      "source": "/(.*)",
+      "destination": "/cmd/main.go"
     }
   ]
 }
